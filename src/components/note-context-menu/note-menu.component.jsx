@@ -9,8 +9,9 @@ import {
   UnpinIcon,
   SelectMenu,
   Position,
+  Dialog,
 } from "evergreen-ui";
-import { NoteMenuContainer } from "./note-menu.styles";
+import { NoteMenuContainer, DeleteMessage } from "./note-menu.styles";
 import { MenuItem } from "react-contextmenu";
 
 export const NoteContextMenu = ({
@@ -25,7 +26,9 @@ export const NoteContextMenu = ({
   colors,
 }) => {
   const [selected, setSelected] = React.useState(null);
-  const deleteNote = (e) => {
+  const [isShown, setIsShown] = React.useState(false);
+
+  const deleteNote = () => {
     const newData = noteData.filter((note) => note.id !== noteId);
     setNoteData(newData);
   };
@@ -86,6 +89,7 @@ export const NoteContextMenu = ({
             <MenuItem preventClose={true}>
               <SelectMenu
                 width={200}
+                height={231}
                 closeOnSelect={true}
                 title="Select Color"
                 options={[
@@ -123,7 +127,7 @@ export const NoteContextMenu = ({
             <MenuItem
               onClick={(e) => {
                 e.preventDefault();
-                deleteNote(e);
+                setIsShown(true);
               }}
             >
               <Menu.Item icon={TrashIcon} intent="danger">
@@ -133,6 +137,20 @@ export const NoteContextMenu = ({
           </Menu.Group>
         </Menu>
       </NoteMenuContainer>
+      <Dialog
+        isShown={isShown}
+        hasHeader={false}
+        intent="danger"
+        onCloseComplete={() => setIsShown(false)}
+        confirmLabel="Delete"
+        onConfirm={deleteNote}
+        width={400}
+        topOffset={200}
+      >
+        <DeleteMessage>
+          Are you sure you want to delete this note?
+        </DeleteMessage>
+      </Dialog>
     </>
   );
 };

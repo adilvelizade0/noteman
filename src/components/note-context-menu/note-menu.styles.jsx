@@ -11,4 +11,11 @@ const NoteMenuContainer = styled(ContextMenu)`
     rgb(67 90 111 / 47%) 0px 8px 10px -4px;
 `;
 
-export { NoteMenuContainer };
+const DeleteMessage = styled.div`
+  font-family: "Permanent Marker", cursive;
+  font-weight: bold;
+  margin-top: 20px;
+  font-size: 24px;
+`;
+
+export { NoteMenuContainer, DeleteMessage };
