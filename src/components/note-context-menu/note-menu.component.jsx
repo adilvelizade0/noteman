@@ -78,8 +78,8 @@ export const NoteContextMenu = ({
                 lockNote(e);
               }}
             >
-              <Menu.Item icon={lock ? LockIcon : UnlockIcon}>
-                {lock ? "Lock" : "Unlock"}
+              <Menu.Item icon={!lock ? LockIcon : UnlockIcon}>
+                {!lock ? "Lock" : "Unlock"}
               </Menu.Item>
             </MenuItem>
 
