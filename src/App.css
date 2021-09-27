@@ -9,3 +9,24 @@ body {
 .App {
   height: 100%;
 }
+
+.overflow-scrolling {
+  overflow: auto;
+  display: flex;
+  flex-direction: row;
+  -webkit-overflow-scrolling: touch;
+}
+
+.css-xeqldi::before {
+  width: 0% !important;
+}
+
+.ub-w_100vw {
+  width: fit-content !important;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.css-xeqldi {
+  overflow-x: scroll;
+}

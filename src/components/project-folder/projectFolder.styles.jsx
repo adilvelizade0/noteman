@@ -4,6 +4,7 @@ import BlueFolder from "../../assets/bluFolder.svg";
 import PinkFolder from "../../assets/pinkFolder.svg";
 
 const ProjectFoldersContainer = styled.div`
+  width: 100%;
   height: 150px;
   background-color: white;
   display: flex;

@@ -8,6 +8,7 @@ import {
   ProjectFolderBlueIcon,
   // ProjectFolderPinkIcon,
 } from "./projectFolder.styles";
+import OverflowScrolling from "react-overflow-scrolling";
 
 const ProjectFolders = ({ history, pathObj }) => {
   const addProjectFolder = () => {
@@ -17,16 +18,17 @@ const ProjectFolders = ({ history, pathObj }) => {
 
   return (
     <ProjectFoldersContainer>
-      {pathObj.projectPath.map((path) => (
-        <ProjectFolder onClick={() => history.push(`${path}`)}>
-          <ProjectFolderBlueIcon />
-          <span>{path.split("/")[1]}</span>
-        </ProjectFolder>
-      ))}
-
-      <ProjectFolderAdd onClick={() => addProjectFolder()}>
-        <ProjectFolderAddIcon />
-      </ProjectFolderAdd>
+      <OverflowScrolling className="overflow-scrolling">
+        {pathObj.projectPath.map((path) => (
+          <ProjectFolder onClick={() => history.push(`${path}`)}>
+            <ProjectFolderBlueIcon />
+            <span>{path.split("/")[1]}</span>
+          </ProjectFolder>
+        ))}
+        <ProjectFolderAdd onClick={() => addProjectFolder()}>
+          <ProjectFolderAddIcon />
+        </ProjectFolderAdd>
+      </OverflowScrolling>
     </ProjectFoldersContainer>
   );
 };
