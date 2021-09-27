@@ -18,17 +18,15 @@ const ProjectFolders = ({ history, pathObj }) => {
 
   return (
     <ProjectFoldersContainer>
-      <OverflowScrolling className="overflow-scrolling">
-        {pathObj.projectPath.map((path) => (
-          <ProjectFolder onClick={() => history.push(`${path}`)}>
-            <ProjectFolderBlueIcon />
-            <span>{path.split("/")[1]}</span>
-          </ProjectFolder>
-        ))}
-        <ProjectFolderAdd onClick={() => addProjectFolder()}>
-          <ProjectFolderAddIcon />
-        </ProjectFolderAdd>
-      </OverflowScrolling>
+      {pathObj.projectPath.map((path) => (
+        <ProjectFolder onClick={() => history.push(`${path}`)}>
+          <ProjectFolderBlueIcon />
+          <span>{path.split("/")[1]}</span>
+        </ProjectFolder>
+      ))}
+      <ProjectFolderAdd onClick={() => addProjectFolder()}>
+        <ProjectFolderAddIcon />
+      </ProjectFolderAdd>
     </ProjectFoldersContainer>
   );
 };

@@ -59,7 +59,6 @@ export const NoteComponent = ({ id, setNoteData, noteData, note, name }) => {
           minHeight="100"
           maxWidth="350"
           maxHeight="350"
-          dragGrid={[30, 30]}
           enableResizing={!lock}
           disableDragging={pin || !lock}
           size={{ width: widthAndHeight.width, height: widthAndHeight.height }}
