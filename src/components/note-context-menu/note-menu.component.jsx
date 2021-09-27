@@ -24,12 +24,15 @@ export const NoteContextMenu = ({
   setPin,
   setColors,
   colors,
+  name,
 }) => {
   const [selected, setSelected] = React.useState(null);
   const [isShown, setIsShown] = React.useState(false);
 
   const deleteNote = () => {
     const newData = noteData.filter((note) => note.id !== noteId);
+    localStorage.removeItem(`${name}-xAndY-${noteId}`);
+    localStorage.removeItem(`${name}-widthAndHeight-${noteId}`);
     setNoteData(newData);
   };
 
@@ -40,7 +43,7 @@ export const NoteContextMenu = ({
       }
       return note;
     });
-    console.log(newData);
+
     setNoteData(newData);
     setLock(!lock);
   };

@@ -5,19 +5,31 @@ import { ContextMenuTrigger } from "react-contextmenu";
 import { NoteContextMenu } from "components/note-context-menu/note-menu.component";
 import lightOrDark from "utils/contrast";
 
-export const NoteComponent = ({ id, color, setNoteData, noteData, note }) => {
+export const NoteComponent = ({ id, setNoteData, noteData, note, name }) => {
   const [lock, setLock] = useState(note.isLock);
   const [pin, setPin] = useState(note.pin);
-  const [colors, setColors] = useState(color);
+  const [colors, setColors] = useState(note.color);
+  const [text, setText] = useState(note.textValue);
+
+  const changeText = (e) => {
+    const newData = noteData.map((note) => {
+      if (note.id === id) {
+        note.textValue = e.target.value;
+      }
+      return note;
+    });
+    setText(e.target.value);
+    setNoteData(newData);
+  };
 
   const [xAndY, setXAndY] = useState(() => {
-    const saved = localStorage.getItem(`xAndY-${id}`);
+    const saved = localStorage.getItem(`${name}-xAndY-${id}`);
     const initialValue = JSON.parse(saved);
     return initialValue || { x: 20, y: 20 };
   });
 
   const [widthAndHeight, setWidthAndHeight] = useState(() => {
-    const saved = localStorage.getItem(`widthAndHeight-${id}`);
+    const saved = localStorage.getItem(`${name}-widthAndHeight-${id}`);
     const initialValue = JSON.parse(saved);
     return (
       initialValue || {
@@ -28,15 +40,15 @@ export const NoteComponent = ({ id, color, setNoteData, noteData, note }) => {
   });
 
   useEffect(() => {
-    localStorage.setItem(`xAndY-${id}`, JSON.stringify(xAndY));
-  }, [id, xAndY]);
+    localStorage.setItem(`${name}-xAndY-${id}`, JSON.stringify(xAndY));
+  }, [id, xAndY, name]);
 
   useEffect(() => {
     localStorage.setItem(
-      `widthAndHeight-${id}`,
+      `${name}-widthAndHeight-${id}`,
       JSON.stringify(widthAndHeight),
     );
-  }, [id, widthAndHeight]);
+  }, [id, widthAndHeight, name]);
 
   return (
     <>
@@ -49,7 +61,7 @@ export const NoteComponent = ({ id, color, setNoteData, noteData, note }) => {
           maxHeight="350"
           dragGrid={[30, 30]}
           enableResizing={!lock}
-          disableDragging={pin}
+          disableDragging={pin || !lock}
           size={{ width: widthAndHeight.width, height: widthAndHeight.height }}
           position={{ x: xAndY.x, y: xAndY.y }}
           onDragStop={(e, d) => {
@@ -73,6 +85,7 @@ export const NoteComponent = ({ id, color, setNoteData, noteData, note }) => {
           {lock ? (
             <NoteArea
               type="text"
+              value={text}
               color={colors}
               textColor={lightOrDark(colors)}
               disabled
@@ -82,6 +95,10 @@ export const NoteComponent = ({ id, color, setNoteData, noteData, note }) => {
               type="text"
               color={colors}
               textColor={lightOrDark(colors)}
+              value={text}
+              onChange={(e) => {
+                changeText(e);
+              }}
             />
           )}
         </NoteContainer>
@@ -96,6 +113,7 @@ export const NoteComponent = ({ id, color, setNoteData, noteData, note }) => {
         setPin={setPin}
         setColors={setColors}
         colors={colors}
+        name={name}
       />
     </>
   );
